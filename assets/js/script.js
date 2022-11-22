@@ -7,7 +7,7 @@ var containerDiv = $(".container");
 var hoursOfDay = [
   {
     hour: "8",
-    task: "Change the furnace filter",
+    task: "",
   },
   {
     hour: "9",
@@ -15,7 +15,7 @@ var hoursOfDay = [
   },
   {
     hour: "10",
-    task: "Change the furnace filter",
+    task: "",
   },
   {
     hour: "11",
@@ -23,7 +23,7 @@ var hoursOfDay = [
   },
   {
     hour: "12",
-    task: "Change the furnace filter",
+    task: "",
   },
   {
     hour: "13",
@@ -31,7 +31,7 @@ var hoursOfDay = [
   },
   {
     hour: "14",
-    task: "Change the furnace filter",
+    task: "",
   },
   {
     hour: "15",
@@ -39,7 +39,7 @@ var hoursOfDay = [
   },
   {
     hour: "16",
-    task: "Change the furnace filter",
+    task: "",
   },
   {
     hour: "17",
@@ -54,13 +54,9 @@ function displayTime() {
 }
 
 // Checks local storage for tasks
-// function readTasksFromStorage() {
-//   var tasks;
+//function readTasksFromStorage() {
+//  var tasks = localStorage.getItem('')
 // }
-
-// Dayjs info:
-// dayjs().hour() // gets current hour
-// newDate = dayjs().hour(12) // returns new dayjs object
 
 // Creates rows for each hour of work day
 function createHours() {
@@ -68,12 +64,12 @@ function createHours() {
     var hourBlocks = hoursOfDay[i];
 
     var taskTime = hourBlocks.hour;
-    console.log(taskTime);
+
     currentHour = dayjs().hour();
-    console.log(currentHour);
+
     var rowEl = $("<div/>", { class: "row time-block" });
     var hourEl = $("<div/>", { class: "col-1 hour" }).text(hourBlocks.hour);
-    var taskEl = $("<div/>", { class: "col-10 description" }).text(
+    var taskEl = $("<textarea/>", { class: "col-10 description" }).text(
       hourBlocks.task
     );
     var saveButtonEl = $("<div/>", { class: "col-1 saveBtn" });
@@ -96,8 +92,6 @@ function createHours() {
 createHours();
 
 // Button to save new event
-
-// Click on block to enter new event
 
 displayTime();
 setInterval(displayTime, 1000);
