@@ -46,9 +46,10 @@ var hoursOfDay = [
   },
 ];
 
+// Checks local storage for saved items and populates local storage with array
 function renderStorage() {
   var tasks = JSON.parse(localStorage.getItem("tasks"));
-  console.log(tasks)
+  console.log(tasks);
   if (!tasks) {
     localStorage.setItem("tasks", JSON.stringify(hoursOfDay));
     return;
@@ -58,13 +59,13 @@ function renderStorage() {
     textAreas[i].value = tasks[i].task;
   }
 }
-
-function saveTask(newTask, location){
-  console.log("saving")
-  console.log(newTask, location)
+// Saves tasks to local storage
+function saveTask(newTask, location) {
+  console.log("saving");
+  console.log(newTask, location);
   var tasks = JSON.parse(localStorage.getItem("tasks"));
-  tasks[location].task = newTask
-  console.log(tasks[location])
+  tasks[location].task = newTask;
+  console.log(tasks[location]);
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
@@ -74,18 +75,16 @@ function displayTime() {
   timeDisplayEl.text(rightNow);
 }
 
-// Checks local storage for tasks
-//function readTasksFromStorage() {
-//  var tasks = localStorage.getItem('')
-// }
+// Add listeners to save buttons
+
 function getButtonsReady() {
   var saveButtons = document.getElementsByClassName("saveBtn");
   console.log(saveButtons);
   for (let i = 0; i < saveButtons.length; i++) {
     saveButtons[i].addEventListener("click", function (event) {
-      event.preventDefault()
-      console.log(event.target.previousSibling.value, i)
-      saveTask(event.target.previousSibling.value, i)
+      event.preventDefault();
+      console.log(event.target.previousSibling.value, i);
+      saveTask(event.target.previousSibling.value, i);
     });
   }
 }

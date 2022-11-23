@@ -1,3 +1,5 @@
+@charset 'utf-8';
+
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
@@ -63,9 +65,15 @@ textarea {
   border-bottom-right-radius: 15px;
   background-color: #06aed5;
   color: white;
+  
 }
 
-.saveBtn i:hover {
+.saveBtn:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
+  background-color: #043e4c;
+}
+
+.saveBtn::after {
+  content: '💾';
 }
