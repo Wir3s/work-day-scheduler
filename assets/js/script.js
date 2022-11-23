@@ -3,7 +3,6 @@ var timeDisplayEl = $("#time-display");
 var containerDiv = $(".container");
 
 // Create array for hours of the day
-
 var hoursOfDay = [
   {
     hour: "8",
@@ -47,6 +46,28 @@ var hoursOfDay = [
   },
 ];
 
+function renderStorage() {
+  var tasks = JSON.parse(localStorage.getItem("tasks"));
+  console.log(tasks)
+  if (!tasks) {
+    localStorage.setItem("tasks", JSON.stringify(hoursOfDay));
+    return;
+  }
+  var textAreas = document.getElementsByTagName("textarea");
+  for (let i = 0; i < tasks.length; i++) {
+    textAreas[i].value = tasks[i].task;
+  }
+}
+
+function saveTask(newTask, location){
+  console.log("saving")
+  console.log(newTask, location)
+  var tasks = JSON.parse(localStorage.getItem("tasks"));
+  tasks[location].task = newTask
+  console.log(tasks[location])
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
 // Get and display current time
 function displayTime() {
   var rightNow = dayjs().format("MMM DD [at] hh:mm:ss a");
@@ -57,6 +78,17 @@ function displayTime() {
 //function readTasksFromStorage() {
 //  var tasks = localStorage.getItem('')
 // }
+function getButtonsReady() {
+  var saveButtons = document.getElementsByClassName("saveBtn");
+  console.log(saveButtons);
+  for (let i = 0; i < saveButtons.length; i++) {
+    saveButtons[i].addEventListener("click", function (event) {
+      event.preventDefault()
+      console.log(event.target.previousSibling.value, i)
+      saveTask(event.target.previousSibling.value, i)
+    });
+  }
+}
 
 // Creates rows for each hour of work day
 function createHours() {
@@ -72,8 +104,8 @@ function createHours() {
     var taskEl = $("<textarea/>", { class: "col-10 description" }).text(
       hourBlocks.task
     );
-    var saveButtonEl = $("<div/>", { class: "col-1 saveBtn" });
-
+    var saveButtonEl = document.createElement("button");
+    saveButtonEl.classList.add("col-1", "saveBtn");
     // add class to row by comparing time to current time
     if (taskTime < currentHour) {
       rowEl.addClass("past");
@@ -86,6 +118,8 @@ function createHours() {
     containerDiv.append(rowEl);
     rowEl.append(hourEl, taskEl, saveButtonEl);
   }
+  renderStorage();
+  getButtonsReady();
 }
 
 // Display time blocks
