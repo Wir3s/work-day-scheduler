@@ -105,6 +105,7 @@ function createHours() {
     );
     var saveButtonEl = document.createElement("button");
     saveButtonEl.classList.add("col-1", "saveBtn");
+    saveButtonEl.innerHTML = "&#128190;";
     // add class to row by comparing time to current time
     if (taskTime < currentHour) {
       rowEl.addClass("past");
