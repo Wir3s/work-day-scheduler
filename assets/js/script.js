@@ -49,7 +49,6 @@ var hoursOfDay = [
 // Checks local storage for saved items and populates local storage with array
 function renderStorage() {
   var tasks = JSON.parse(localStorage.getItem("tasks"));
-  console.log(tasks);
   if (!tasks) {
     localStorage.setItem("tasks", JSON.stringify(hoursOfDay));
     return;
@@ -61,11 +60,8 @@ function renderStorage() {
 }
 // Saves tasks to local storage
 function saveTask(newTask, location) {
-  console.log("saving");
-  console.log(newTask, location);
   var tasks = JSON.parse(localStorage.getItem("tasks"));
   tasks[location].task = newTask;
-  console.log(tasks[location]);
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
@@ -79,11 +75,9 @@ function displayTime() {
 
 function getButtonsReady() {
   var saveButtons = document.getElementsByClassName("saveBtn");
-  console.log(saveButtons);
   for (let i = 0; i < saveButtons.length; i++) {
     saveButtons[i].addEventListener("click", function (event) {
       event.preventDefault();
-      console.log(event.target.previousSibling.value, i);
       saveTask(event.target.previousSibling.value, i);
     });
   }
@@ -93,9 +87,7 @@ function getButtonsReady() {
 function createHours() {
   for (var i = 0; i < hoursOfDay.length; i += 1) {
     var hourBlocks = hoursOfDay[i];
-
     var taskTime = hourBlocks.hour;
-
     currentHour = dayjs().hour();
 
     var rowEl = $("<div/>", { class: "row time-block" });
